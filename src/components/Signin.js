@@ -157,7 +157,7 @@ export default function Signin() {
     }
     if (data.error || !data) {
       toast.error(data.error);
-      console.log(data.error);
+      console.log('------',data.error);
     }
   };
 

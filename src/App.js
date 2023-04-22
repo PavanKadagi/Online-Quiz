@@ -29,8 +29,8 @@ import ProtectedAdminNotLogin from './components/ProtectedRoute/ProtectedAdminNo
 
 
 
-export const URL = process.env.SERVER_URL;
-
+export const URL = process.env.REACT_APP_SERVER_URL;
+console.log('ppp',URL,process.env.TEST);
  function App() {
   return (
     <>
