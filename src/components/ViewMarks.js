@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../App";
 
 const Wrapper = styled.div`
   background-color: #fff;
@@ -46,7 +47,7 @@ export default function ViewMarks() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const callUSerInfo = async () => {
-    let res = await fetch("/getUserData");
+    let res = await fetch(`${URL}/getUserData`);
     res = await res.json();
     console.log(res);
     setData(res);

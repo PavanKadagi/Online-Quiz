@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
+import { URL } from "../App";
 
 const RecoveryDiv = styled.section`
   padding: 2rem;
@@ -84,7 +85,7 @@ export default function PasswordVerified() {
 
   const verifyPassword = async () => {
     console.log("-----");
-    let res = await fetch("/forget-password", {
+    let res = await fetch(`${URL}/forget-password`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -118,7 +119,7 @@ export default function PasswordVerified() {
     if (!password === cpassword) {
       toast.error("Password Not Match...!");
     } else {
-      let res = await fetch("/forget-password", {
+      let res = await fetch(`${URL}/forget-password`, {
         method: "POST",
         headers: {
           Accept: "application/json",

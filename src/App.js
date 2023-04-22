@@ -26,8 +26,10 @@ import ProtectedUserNotLogin from './components/ProtectedRoute/ProtectedUserNotL
 import ProtectedUserLogin from './components/ProtectedRoute/ProtectedUserLogin';
 import ProtectedAdminLogin from './components/ProtectedRoute/ProtectedAdminLogin';
 import ProtectedAdminNotLogin from './components/ProtectedRoute/ProtectedAdminNotLogin';
-import Footer from './components/Footer';
 
+
+
+export const URL = process.env.SERVER_URL;
 
  function App() {
   return (

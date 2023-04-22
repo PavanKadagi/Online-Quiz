@@ -3,6 +3,7 @@ import toast,{Toaster} from 'react-hot-toast';
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {  useNavigate } from "react-router-dom";
+import { URL } from '../App';
 
 
 
@@ -83,7 +84,7 @@ export default function Verification() {
 
     const verification = async (e)=>{
       e.preventDefault();
-      let res = await fetch('/verification',{
+      let res = await fetch(`${URL}/verification`,{
         method:"POST",
         headers:{
           Accept:"application/json",

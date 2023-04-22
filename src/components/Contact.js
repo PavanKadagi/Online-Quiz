@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaMobile, FaEnvelope, FaAddressBook } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { URL } from "../App";
 
 const ContactDiv = styled.section`
   .contact {
@@ -120,7 +121,7 @@ export default function Contact() {
 
   const callContactPage = async () => {
     try {
-      let res = await fetch("/getUserData", {
+      let res = await fetch(`${URL}/getUserData`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -150,7 +151,7 @@ export default function Contact() {
       const { name, email, phone, message } = userData;
       console.log("contact", userData);
 
-      let res = await fetch("/contact", {
+      let res = await fetch(`${URL}/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

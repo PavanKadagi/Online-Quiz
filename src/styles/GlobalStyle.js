@@ -48,7 +48,7 @@ h4,h5,h6{
 
 h1{
   text-transform: capitalize;
-  font-weight: bolder;
+  font-weight: bold;
 }
 
 /* resuable code */

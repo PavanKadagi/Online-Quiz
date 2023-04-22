@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { URL } from "../App";
 
 const VerifyPassword = styled.div`
   margin-top: 2rem;
@@ -16,7 +17,7 @@ export default function EmailVerifyed() {
   const newId = id.get("id");
   const verifyMail = async () => {
     console.log("-----");
-    let res = await fetch("/verify", {
+    let res = await fetch(`${URL}/verify`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

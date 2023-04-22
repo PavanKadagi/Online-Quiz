@@ -2,6 +2,7 @@ import React, {  } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components';
 import toast,{Toaster} from 'react-hot-toast';
+import { URL } from '../App';
 
 
 const Wrapper = styled.section`
@@ -48,7 +49,7 @@ export default function QuizInfo() {
 
     const checkAnswer = async()=>{
       try {
-        let res = await fetch('/getAnswers',{
+        let res = await fetch(`${URL}/getAnswers`,{
           method:"GET"
         });
 

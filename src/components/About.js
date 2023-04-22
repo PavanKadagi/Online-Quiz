@@ -4,6 +4,7 @@ import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import avatar from "../assets/profile.png";
+import { URL } from "../App";
 
 const Wrapper = styled.section`
   display: flex;
@@ -215,7 +216,7 @@ export default function About() {
 
   const callAboutPage = async () => {
     try {
-      const res = await fetch("/about", {
+      const res = await fetch(`${URL}/about`, {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -246,7 +247,7 @@ export default function About() {
   const updateUserData = async () => {
     try {
       const { _id, name, phone, profession, dob, address } = userData;
-      let res = await fetch("/about", {
+      let res = await fetch(`${URL}/about`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",

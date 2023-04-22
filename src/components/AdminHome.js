@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { URL } from "../App";
 
 const AdminDiv = styled.section`
   nav {
@@ -66,7 +67,7 @@ const AdminDiv = styled.section`
 export default function AdminHome() {
   const [data, setData] = useState([]);
   const callAllUserData = async () => {
-    let res = await fetch("/admin/home");
+    let res = await fetch(`${URL}/admin/home`);
     res = await res.json();
     setData(res);
   };

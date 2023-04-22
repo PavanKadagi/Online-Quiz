@@ -5,6 +5,7 @@ import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
 // import { theme } from "../styles/Theme";
 import { useEffect } from "react";
+import { URL } from "../App";
 
 const SigninDiv = styled.section`
   .signin {
@@ -132,7 +133,7 @@ export default function Signin() {
     e.preventDefault();
     const { email, password } = userLogin;
     console.log(email, password);
-    let res = await fetch("/signin", {
+    let res = await fetch(`${URL}/signin`, {
       method: "POST",
       headers: {
         Accept: "application/json",

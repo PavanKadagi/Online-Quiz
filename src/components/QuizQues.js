@@ -3,6 +3,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import LoadingPage from "./LoadingPage";
 import toast, { Toaster } from "react-hot-toast";
+import { URL } from "../App";
 
 const Wrapper = styled.section`
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
@@ -250,7 +251,7 @@ export default function QuizQues() {
 
   const callTestPage = async () => {
     try {
-      let res = await fetch(`/test/${language}page=${page}&limit=${limit}`, {
+      let res = await fetch(`${URL}/test/${language}page=${page}&limit=${limit}`, {
         method: "GET",
       });
       res = await res.json();
@@ -307,7 +308,7 @@ export default function QuizQues() {
     let text = "Are you want to submit the test?";
     if (window.confirm(text)) {
       let answer = ans.filter((item) => item === true).length;
-      let data = await fetch("/answer", {
+      let data = await fetch(`${URL}/answer`, {
         method: "POST",
         headers: {
           Accept: "application/json",

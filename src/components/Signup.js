@@ -9,6 +9,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
+import { URL } from "../App";
 // import { intialState, reducer, Usercontext } from "../context/ContextAPI";
 
 const SignupDiv = styled.section`
@@ -118,7 +119,7 @@ export default function Signup() {
     } else {
       const { name, email, phone, profession, dob, address, password } = user;
       console.log(user);
-      const res = await fetch("/signup", {
+      const res = await fetch(`${URL}/signup`, {
         method: "POST",
         headers: {
           Accept: "application/json",

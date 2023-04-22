@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { URL } from "../App";
 
 export default function Logout() {
   const navigate = useNavigate();
 
   const callLogoutPage = async () => {
     try {
-      let res = await fetch("/logout", {
+      let res = await fetch(`${URL}/logout`, {
         method: "GET",
         headers: {
           Accept: "application/json",

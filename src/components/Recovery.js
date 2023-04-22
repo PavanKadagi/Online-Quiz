@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserContext } from "../context/ContextAPI";
 import toast, { Toaster } from "react-hot-toast";
+import { URL } from "../App";
 
 const RecoveryDiv = styled.section`
   padding: 2rem;
@@ -91,7 +92,7 @@ export default function Recovery() {
   const recovery = async (e) => {
     e.preventDefault();
     console.log(email);
-    let res = await fetch("/forget", {
+    let res = await fetch(`${URL}/forget`, {
       method: "POST",
       headers: {
         Accept: "application/json",
