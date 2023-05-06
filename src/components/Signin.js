@@ -134,7 +134,7 @@ export default function Signin() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      credentials: "include",
+      credentials: true,
       body: JSON.stringify({
         email,
         password,
