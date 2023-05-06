@@ -135,6 +135,7 @@ export default function Signin() {
         "Content-Type": "application/json",
       },
       credentials: "include",
+      
       body: JSON.stringify({
         email,
         password,
@@ -145,7 +146,7 @@ export default function Signin() {
     if (data.message) {
       // localStorage.setItem("userLogin", true);
       console.log(data)
-      document.cookie = `user=${data.token};expires=${new Date(Date.now() + 258900000)};path=/;`
+      // document.cookie = `user=${data.token};expires=${new Date(Date.now() + 258900000)};path=/;`
       localStorage.setItem('userLogin',data.token)
       navigate("/");
       let timeOut = setTimeout(() => {
