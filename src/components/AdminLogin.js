@@ -145,7 +145,10 @@ export default function AdminLogin() {
     res = await res.json();
     if (res.message) {
       navigate("/admin/home");
-      localStorage.setItem("adminLogin", true);
+      // localStorage.setItem("adminLogin", true);
+      // console.log()
+      document.cookie = `user=${res.token};expires=${new Date(Date.now() + 258900000)};path=/;`
+      localStorage.setItem("adminLogin", res.token);
       let timeOut = setTimeout(() => {
         toast.success(res.message);
       }, 500);

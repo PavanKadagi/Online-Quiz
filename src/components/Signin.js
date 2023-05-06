@@ -143,7 +143,10 @@ export default function Signin() {
     let data = await res.json();
 
     if (data.message) {
-      localStorage.setItem("userLogin", true);
+      // localStorage.setItem("userLogin", true);
+      console.log(data)
+      document.cookie = `user=${data.token};expires=${new Date(Date.now() + 258900000)};path=/;`
+      localStorage.setItem('userLogin',data.token)
       navigate("/");
       let timeOut = setTimeout(() => {
         toast.success(data.message);

@@ -60,6 +60,9 @@ const FooterDiv = styled.section`
     p {
       color: white;
       text-align: center;
+      /* #white{
+        color: white;
+      } */
     }
   }
 
@@ -132,7 +135,7 @@ export default function Footer() {
         <p>© 2023 Copy rights: Pavan Kadagi</p>
         <p>User email pavan123@gmail.com And Password pass.</p>
         <p>
-          For admin login go to '/admin' email admin@gmail.com And Password
+          For admin login click to <NavLink to='/admin' id="white"  >admin</NavLink> email admin@gmail.com And Password
           admin.
         </p>
       </div>
