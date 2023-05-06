@@ -77,37 +77,35 @@ const RecoveryDiv = styled.section`
 
 export default function Recovery() {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (localStorage.getItem("userLogin")) {
-      navigate("/");
-    }
-  }, []);
+  // const navigate = useNavigate();
 
   const handleInput = (e) => {
     setEmail(e.target.value);
   };
 
   const recovery = async (e) => {
-    e.preventDefault();
-    console.log(email);
-    let res = await fetch(`${URL}/forget`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-      }),
-    });
-    res = await res.json();
-    console.log(res);
-    if (res.message) {
-      toast.success(res.message);
-    } else {
-      toast.error(res.error);
+    try {
+      e.preventDefault();
+      // console.log(email);
+      let res = await fetch(`${URL}/forget`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      });
+      res = await res.json();
+      console.log(res);
+      if (res.message) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.error);
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 

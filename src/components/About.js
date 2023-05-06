@@ -253,6 +253,7 @@ export default function About() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        credentials:"include",
         body: JSON.stringify({
           _id,
           name,
@@ -265,7 +266,7 @@ export default function About() {
       });
 
       let data = await res.json();
-      console.log("PATCH", data);
+      // console.log("PATCH", data);
       if (data.status === 400 || !data) {
         toast.error(data.error);
         console.log(data.error);
@@ -295,7 +296,7 @@ export default function About() {
   const handleInput = (e) => {
     name = e.target.name;
     value = e.target.value;
-    console.log("---", value);
+    // console.log("---", value);
     setUserData({ ...userData, [name]: value });
   };
 

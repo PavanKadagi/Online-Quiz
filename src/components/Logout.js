@@ -19,7 +19,6 @@ export default function Logout() {
       const data = await res.json();
       // dispatch({type:'USER',payload:false})
       // alert(data.message)
-      console.log("--sdhbdjasbdsbmnd", data);
       if (data.message) {
         localStorage.clear();
         navigate("/signin");
@@ -37,10 +36,7 @@ export default function Logout() {
   };
 
   useEffect(() => {
-    let timeOut = setTimeout(() => {
-      callLogoutPage();
-    }, 200);
-    return () => clearTimeout(timeOut);
+    callLogoutPage();
   }, []);
 
   return <Toaster position="top-center" reverseOrder={false} />;

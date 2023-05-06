@@ -84,60 +84,61 @@ export default function PasswordVerified() {
   const token = userToken.get("token");
 
   const verifyPassword = async () => {
-    console.log("-----");
-    let res = await fetch(`${URL}/forget-password`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token,
-      }),
-    });
-    // let res = await fetch('/verify',{method:"GET"});
-    res = await res.json();
-    if (res.error) {
-      navigate("/");
-      alert(res.error);
-    }
-    setId(res.userId);
-    console.log("verified", res);
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("userLogin")) {
-      navigate("/");
-    }
-    verifyPassword();
-  }, []);
-  console.log("-----------------------------------------");
-
-  const recovery = async (e) => {
-    e.preventDefault();
-    console.log(password);
-    if (!password === cpassword) {
-      toast.error("Password Not Match...!");
-    } else {
+    try {
       let res = await fetch(`${URL}/forget-password`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          password,
-          id,
+          token,
         }),
       });
+      // let res = await fetch('/verify',{method:"GET"});
       res = await res.json();
-      if (res.message) {
-        navigate("/signin");
-        alert(res.message);
-      }
       if (res.error) {
         navigate("/");
+        alert(res.error);
       }
+      setId(res.userId);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    verifyPassword();
+  }, []);
+
+  const recovery = async (e) => {
+    try {
+      e.preventDefault();
+      if (!password === cpassword) {
+        toast.error("Password Not Match...!");
+      } else {
+        let res = await fetch(`${URL}/forget-password`, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password,
+            id,
+          }),
+        });
+        res = await res.json();
+        if (res.message) {
+          navigate("/signin");
+          alert(res.message);
+        }
+        if (res.error) {
+          navigate("/");
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (

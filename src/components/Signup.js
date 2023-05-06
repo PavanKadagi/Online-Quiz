@@ -111,13 +111,57 @@ export default function Signup() {
     confirmpassword: "",
   });
 
+  const isEmail = (emailVal) => {
+    let atSymbol = emailVal.indexOf("@");
+    if (atSymbol < 1) return false;
+    let dot = emailVal.lastIndexOf(".");
+    //example1 = vi@gm.com for condition true , example2 = vi@.com for condition false
+    if (dot <= atSymbol + 2) return false;
+    // dot should  be last
+    if (dot === emailVal.length - 1) return false;
+    return true;
+  };
+
+  const setErrorMsg = (errorMsg)=>{
+    toast.error(errorMsg);
+  } 
+
   const register = async (e) => {
+   try {
     e.preventDefault();
-    console.log(user);
-    if (user.confirmpassword !== user.password) {
+    // console.log(user);
+    let { name, email, phone, password, dob, address, profession } = user;
+    const nameVal = name.trim();
+    const emailVal = email.trim();
+    const phoneVal = phone.toString().trim();
+    const passwordVal = password.trim();
+
+    if(!name ||
+      !email ||
+      !phone ||
+      !profession ||
+      !address ||
+      !dob ||
+      !password){
+        return setErrorMsg("Plz filled the field properly...!")
+    }
+    else if(nameVal.length <=2){
+      return setErrorMsg("name min 3 char");
+    }
+    else if(!isEmail(emailVal)){
+      return setErrorMsg('Not a valid Email');
+    }
+    else if(phoneVal.length !== 10){
+      return setErrorMsg('Phone Number must be 10 digit')
+    }
+    else if(passwordVal.length < 3){
+      return setErrorMsg('Minimum 3 char')
+    }
+
+    else if (user.confirmpassword !== user.password) {
       toast.error("Password not match...!");
     } else {
-      const { name, email, phone, profession, dob, address, password } = user;
+      // const { name, email, phone, profession, dob, address, password } = user;
       console.log(user);
       const res = await fetch(`${URL}/signup`, {
         method: "POST",
@@ -125,14 +169,15 @@ export default function Signup() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        credentials:"include",
         body: JSON.stringify({
-          name,
-          email,
-          phone,
+          nameVal,
+          emailVal,
+          phoneVal,
           profession,
           dob,
           address,
-          password,
+          passwordVal,
         }),
       });
 
@@ -151,6 +196,9 @@ export default function Signup() {
         console.log(data.error);
       }
     }
+   } catch (error) {
+    console.log(error.message)
+   }
   };
 
   let name, value;

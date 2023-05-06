@@ -116,12 +116,6 @@ export default function Signin() {
     password: "",
   });
 
-  useEffect(() => {
-    if (localStorage.getItem("userLogin")) {
-      navigate("/");
-    }
-  }, []);
-
   let name, value;
   const handleInput = (e) => {
     name = e.target.name;
@@ -130,15 +124,17 @@ export default function Signin() {
   };
 
   const login = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
     const { email, password } = userLogin;
-    console.log(email, password);
+    // console.log(email, password);
     let res = await fetch(`${URL}/signin`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
@@ -157,7 +153,10 @@ export default function Signin() {
     }
     if (data.error || !data) {
       toast.error(data.error);
-      console.log('------',data.error);
+      console.log(data.error);
+    }
+    } catch (error) {
+      console.log(error.message)
     }
   };
 

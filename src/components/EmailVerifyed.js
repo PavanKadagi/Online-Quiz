@@ -15,23 +15,29 @@ export default function EmailVerifyed() {
   const navigate = useNavigate();
   const [id, setId] = useSearchParams("");
   const newId = id.get("id");
+
   const verifyMail = async () => {
-    console.log("-----");
-    let res = await fetch(`${URL}/verify`, {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: newId,
-      }),
-    });
-    // let res = await fetch('/verify');
-    res = await res.json();
-    console.log("verified", res);
-    if (res.error) {
-      navigate("/");
+    try {
+      let res = await fetch(`${URL}/verify`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: newId,
+        }),
+      });
+      // let res = await fetch('/verify');
+      res = await res.json();
+      if (res.error) {
+        navigate("/");
+      }
+      if(res.message){
+        alert(res.message)
+      }
+    } catch (error) {
+      console.log(error.message)
     }
   };
 
@@ -43,7 +49,7 @@ export default function EmailVerifyed() {
   }, []);
   return (
     <VerifyPassword>
-      <h1>Your email has been verified...!</h1>
+      {/* <h1>Your email has been verified...!</h1> */}
       <button onClick={() => navigate("/signin")}>Go To Login</button>
     </VerifyPassword>
   );

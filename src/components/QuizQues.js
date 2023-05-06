@@ -251,11 +251,19 @@ export default function QuizQues() {
 
   const callTestPage = async () => {
     try {
-      let res = await fetch(`${URL}/test/${language}page=${page}&limit=${limit}`, {
-        method: "GET",
-      });
+      let res = await fetch(
+        `${URL}/test/${language}page=${page}&limit=${limit}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       res = await res.json();
-      console.log(res.data);
+      // console.log(res.data);
       setData(res.data);
       setLoading(false);
     } catch (error) {
@@ -279,7 +287,7 @@ export default function QuizQues() {
     } else {
       ans.splice(page - 1, 1, false);
     }
-    console.log(ans);
+    // console.log(ans);
     setAns(ans);
     let span = document.getElementsByTagName("span");
     span[page - 1].style.background = "rgba(0,255,0,0.4)";
@@ -290,7 +298,7 @@ export default function QuizQues() {
       page = 0;
     }
     setSearchParam({ page: Number(page) + 1, limit: 1 });
-    console.log("page", page);
+    // console.log("page", page);
   };
 
   const prev = () => {
@@ -304,7 +312,8 @@ export default function QuizQues() {
   };
 
   const Submit = async (e) => {
-    let timeTaken = `${minutes}m : ${seconds}s`;
+    try {
+      let timeTaken = `${minutes}m : ${seconds}s`;
     let text = "Are you want to submit the test?";
     if (window.confirm(text)) {
       let answer = ans.filter((item) => item === true).length;
@@ -314,6 +323,7 @@ export default function QuizQues() {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           answer,
           language,
@@ -325,7 +335,9 @@ export default function QuizQues() {
         toast(data.message);
         navigate("/viewmarks");
       }
-      console.log("submit", data);
+    }
+    } catch (error) {
+     console.log(error.message) 
     }
   };
 
@@ -391,92 +403,92 @@ export default function QuizQues() {
               </h4>
             </header>
             <div className="line"></div>
-            {
-              data ?
+            {data ? (
               data.map((ques, index) => (
-              <div key={index} className="quiz">
-                <div>
-                  <p className="que">Question: {page + " of " + 10}</p>
-                  <article>
-                    <p>{ques.question}</p>
-                  </article>
+                <div key={index} className="quiz">
+                  <div>
+                    <p className="que">Question: {page + " of " + 10}</p>
+                    <article>
+                      <p>{ques.question}</p>
+                    </article>
+                  </div>
+
+                  <aside>
+                    <p>Choose the correct option</p>
+                    <div className="quiz-options">
+                      <div className="quiz-options-row">
+                        <input
+                          type="radio"
+                          checked={selectAns === ques.option1}
+                          value={ques.option1}
+                          id="option1"
+                          name="options"
+                          onChange={handleInput}
+                        />
+                        <label htmlFor="option1">{ques.option1}</label>
+                      </div>
+                      {/* second row  */}
+                      <div className="quiz-options-row">
+                        <input
+                          type="radio"
+                          checked={selectAns === ques.option2}
+                          value={ques.option2}
+                          id="option2"
+                          name="options"
+                          onChange={handleInput}
+                        />
+                        <label htmlFor="option2">{ques.option2}</label>
+                      </div>
+
+                      {/* second row */}
+
+                      <div className="quiz-options-row">
+                        <input
+                          type="radio"
+                          checked={selectAns === ques.option3}
+                          value={ques.option3}
+                          id="option3"
+                          name="options"
+                          onChange={handleInput}
+                        />
+                        <label htmlFor="option3">{ques.option3}</label>
+                      </div>
+                      {/* 2 */}
+                      <div className="quiz-options-row">
+                        <input
+                          type="radio"
+                          checked={selectAns === ques.option4}
+                          id="option4"
+                          value={ques.option4}
+                          name="options"
+                          onChange={handleInput}
+                        />
+                        <label htmlFor="option4">{ques.option4}</label>
+                      </div>
+                    </div>
+
+                    <div className="align-btn">
+                      {page > 1 ? (
+                        <button className="align-btn-left" onClick={prev}>
+                          Prev
+                        </button>
+                      ) : null}
+                      {Number(page) === 10 ? (
+                        <button className="align-btn-submit" onClick={Submit}>
+                          Submit
+                        </button>
+                      ) : (
+                        <button className="align-btn-rigth" onClick={next}>
+                          Next
+                        </button>
+                      )}
+                    </div>
+                  </aside>
                 </div>
-
-                <aside>
-                  <p>Choose the correct option</p>
-                  <div className="quiz-options">
-                    <div className="quiz-options-row">
-                      <input
-                        type="radio"
-                        checked={selectAns === ques.option1}
-                        value={ques.option1}
-                        id="option1"
-                        name="options"
-                        onChange={handleInput}
-                      />
-                      <label htmlFor="option1">{ques.option1}</label>
-                    </div>
-                    {/* second row  */}
-                    <div className="quiz-options-row">
-                      <input
-                        type="radio"
-                        checked={selectAns === ques.option2}
-                        value={ques.option2}
-                        id="option2"
-                        name="options"
-                        onChange={handleInput}
-                      />
-                      <label htmlFor="option2">{ques.option2}</label>
-                    </div>
-
-                    {/* second row */}
-
-                    <div className="quiz-options-row">
-                      <input
-                        type="radio"
-                        checked={selectAns === ques.option3}
-                        value={ques.option3}
-                        id="option3"
-                        name="options"
-                        onChange={handleInput}
-                      />
-                      <label htmlFor="option3">{ques.option3}</label>
-                    </div>
-                    {/* 2 */}
-                    <div className="quiz-options-row">
-                      <input
-                        type="radio"
-                        checked={selectAns === ques.option4}
-                        id="option4"
-                        value={ques.option4}
-                        name="options"
-                        onChange={handleInput}
-                      />
-                      <label htmlFor="option4">{ques.option4}</label>
-                    </div>
-                  </div>
-
-                  <div className="align-btn">
-                    {page > 1 ? (
-                      <button className="align-btn-left" onClick={prev}>
-                        Prev
-                      </button>
-                    ) : null}
-                    {Number(page) === 10 ? (
-                      <button className="align-btn-submit" onClick={Submit}>
-                        Submit
-                      </button>
-                    ) : (
-                      <button className="align-btn-rigth" onClick={next}>
-                        Next
-                      </button>
-                    )}
-                  </div>
-                </aside>
-              </div>
-            ))
-            : <h2>No data</h2>
-            }
+              ))
+            ) : (
+              <h2>No data</h2>
+            )}
           </div>
         </Wrapper>
       )}

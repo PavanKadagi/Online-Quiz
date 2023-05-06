@@ -124,8 +124,10 @@ export default function Contact() {
       let res = await fetch(`${URL}/getUserData`, {
         method: "GET",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
 
       let data = await res.json();
@@ -149,7 +151,7 @@ export default function Contact() {
     try {
       e.preventDefault();
       const { name, email, phone, message } = userData;
-      console.log("contact", userData);
+      // console.log("contact", userData);
 
       let res = await fetch(`${URL}/contact`, {
         method: "POST",

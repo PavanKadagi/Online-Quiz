@@ -7,9 +7,15 @@ export default function AdminLogout() {
     const navigate = useNavigate();
 
     const logoutAdmin =async ()=>{
-        let res = await fetch(`${URL}/admin/logout`,{
-            method:"GET"
-        });
+        try {
+          let res = await fetch(`${URL}/admin/logout`,{
+            method:"GET",
+            headers:{
+              Accept:"application/json",
+              "Content-Type":"application/json"
+            },
+            credentials:"include",
+          });
         res = await res.json();
         if(res.message){
             localStorage.clear()
@@ -22,14 +28,17 @@ export default function AdminLogout() {
         if(res.error || !res){
             navigate('/admin/home')
         }
+        } catch (error) {
+         console.log(error.message) 
+        }
     }
 
     useEffect(()=>{
         
-        let timeOut = setTimeout(()=>{
+        // let timeOut = setTimeout(()=>{
         logoutAdmin()
-        },300)
-        return ()=> clearTimeout(timeOut)
+        // },300)
+        // return ()=> clearTimeout(timeOut)
     },[])
 
   return (

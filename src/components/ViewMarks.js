@@ -47,10 +47,21 @@ export default function ViewMarks() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const callUSerInfo = async () => {
-    let res = await fetch(`${URL}/getUserData`);
-    res = await res.json();
-    console.log(res);
-    setData(res);
+    try {
+      let res = await fetch(`${URL}/getUserData`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      res = await res.json();
+      // console.log(res);
+      setData(res);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   useEffect(() => {

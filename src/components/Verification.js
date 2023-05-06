@@ -1,21 +1,19 @@
-import React from 'react';
-import toast,{Toaster} from 'react-hot-toast';
+import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import {  useNavigate } from "react-router-dom";
-import { URL } from '../App';
-
-
+import { useNavigate } from "react-router-dom";
+import { URL } from "../App";
 
 const VerificationDiv = styled.section`
-padding: 2rem;
+  padding: 2rem;
   .recovery {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
 
-  h2{
+  h2 {
     text-align: center;
   }
   .recovery p {
@@ -37,7 +35,7 @@ padding: 2rem;
     width: 30rem;
     font-size: 1.3rem;
     opacity: 0.7;
-    padding: .8rem 1.5rem;
+    padding: 0.8rem 1.5rem;
     color: ${({ theme }) => theme.colors.textColor};
     border: 0.1rem solid ${({ theme }) => theme.colors.blue};
   }
@@ -78,72 +76,67 @@ padding: 2rem;
 `;
 
 export default function Verification() {
-  const [email,setEmail] = useState('');
-    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-
-    const verification = async (e)=>{
+  const verification = async (e) => {
+    try {
       e.preventDefault();
-      let res = await fetch(`${URL}/verification`,{
-        method:"POST",
-        headers:{
-          Accept:"application/json",
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          email
-        })
-      })
-      res = await res.json();
-      if(res.message){
-        toast.success(res.message)
-      }
-      if(res.error){
-        toast.error(res.error)
-      }
+    let res = await fetch(`${URL}/verification`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+    res = await res.json();
+    if (res.message) {
+      toast.success(res.message);
     }
+    if (res.error) {
+      toast.error(res.error);
+    }
+    } catch (error) {
+      console.log(error.message)
+    }
+  };
 
-    useEffect(()=>{
-      if(localStorage.getItem('userLogin')){
-        navigate('/')
-      }
-    },[])
+
 
   return (
     <>
-    <Toaster
-position="top-center"
-reverseOrder={false}
-/>
- <VerificationDiv className="container">
-  
-   <div className="container2">
-     <div className="glassy recovery">
-       <div className="recovery-content">
-         <h2>Verification</h2>
-         <p>Enter email to Verification</p>
+      <Toaster position="top-center" reverseOrder={false} />
+      <VerificationDiv className="container">
+        <div className="container2">
+          <div className="glassy recovery">
+            <div className="recovery-content">
+              <h2>Verification</h2>
+              <p>Enter email to Verification</p>
 
-         <form className="form" method="POST"  onSubmit={verification}>
-           <div className="form-control">
-             <input
-               type="email"
-               autoComplete="off"
-               name="email"
-               id="email"
-               placeholder="Enter Your Email"
-               value={email}
-               onChange={(e)=>setEmail(e.target.value)}
-               required={true}
-             />
-           </div>
-           <button name="recovery" id="recovery" type="submit"  >
-             Send Verification Link
-           </button>
-         </form>
-       </div>
-     </div>
-   </div>
- </VerificationDiv>
-</>
-  )
+              <form className="form" method="POST" onSubmit={verification}>
+                <div className="form-control">
+                  <input
+                    type="email"
+                    autoComplete="off"
+                    name="email"
+                    id="email"
+                    placeholder="Enter Your Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required={true}
+                  />
+                </div>
+                <button name="recovery" id="recovery" type="submit">
+                  Send Verification Link
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </VerificationDiv>
+    </>
+  );
 }

@@ -30,7 +30,7 @@ import ProtectedAdminNotLogin from './components/ProtectedRoute/ProtectedAdminNo
 
 
 export const URL = process.env.REACT_APP_SERVER_URL;
-console.log('ppp',URL,process.env.TEST);
+console.log('ppp');
  function App() {
   return (
     <>
@@ -44,10 +44,10 @@ console.log('ppp',URL,process.env.TEST);
       <Route path='/contact' element={<ProtectedUserNotLogin Component={Contact} />} />
       <Route path='/signup' element={<ProtectedUserLogin Component={Signup} />} />
       <Route path='/signin' element={<ProtectedUserLogin Component={Signin} />} />
-      <Route path='/logout' element={<ProtectedUserNotLogin Component={Logout} />} />
       <Route path='/viewmarks' element={<ProtectedUserNotLogin Component={ViewMarks} />} /> 
       <Route path='/quiz/:language' element={<QuizInfo />} />
       </Route>
+      <Route path='/logout' element={<ProtectedUserNotLogin Component={Logout} />} />
       <Route path='/test/:language' element={<ProtectedUserNotLogin Component={QuizQues} />} />
       <Route path='/verify' element={<ProtectedUserLogin Component={EmailVerifyed} />} />
       <Route path='/verification' element={<ProtectedUserLogin Component={Verification} />} />

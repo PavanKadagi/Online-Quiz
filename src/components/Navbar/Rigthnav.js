@@ -21,8 +21,6 @@ const NavbarLink = styled.div`
     justify-content: flex-start;
     align-items: center;
     gap: 0.8rem;
-    /* display: grid;
-    grid-template-columns: 3rem auto; */
 
     &:hover {
       color: ${({ theme }) => theme.colors.blue} !important;
@@ -85,7 +83,6 @@ const NavbarLink = styled.div`
       transform: ${({ open }) => (open ? "translateX(0)" : "translateX(100%)")};
       flex-flow: column nowrap;
       background-color: ${({ theme }) => theme.colors.blueLight};
-      /* color: ${({ theme }) => theme.colors.mainTextColor}; */
       position: fixed;
       top: 0;
       right: 0;
@@ -109,9 +106,7 @@ const NavbarLink = styled.div`
         top: 26rem;
       }
     }
-    .navbar-brand {
-      /* align-self: flex-start; */
-    }
+    
   }
 `;
 
@@ -124,7 +119,7 @@ export default function Rightnav({ open }) {
     setPofileInfo(!profileInfo);
   };
   const data = useContext(UserData);
-  console.log("data ---", profileInfo);
+  // console.log("data ---", document.cookie);
   return (
     <NavbarLink className="navbar-space" open={open} profileInfo={profileInfo}>
       <ul className="navbar-nav">

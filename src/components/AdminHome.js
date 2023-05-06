@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { URL } from "../App";
 
@@ -67,14 +67,26 @@ const AdminDiv = styled.section`
 export default function AdminHome() {
   const [data, setData] = useState([]);
   const callAllUserData = async () => {
-    let res = await fetch(`${URL}/admin/home`);
-    res = await res.json();
-    setData(res);
+    try {
+      let res = await fetch(`${URL}/admin/home`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      res = await res.json();
+      setData(res);
+    } catch (error) {
+      console.log(error.message)
+    }
   };
+  // console.log(document.cookie);
   useEffect(() => {
     callAllUserData();
   }, []);
-  console.log(data);
+  // console.log(data);
   return (
     <AdminDiv>
       <nav>

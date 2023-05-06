@@ -126,8 +126,9 @@ export default function AdminLogin() {
   };
 
   const login = async (e) => {
+   try {
     e.preventDefault();
-    console.log(userLogin);
+    // console.log(userLogin);
     const { email, password } = userLogin;
     let res = await fetch("/admin", {
       method: "POST",
@@ -135,6 +136,7 @@ export default function AdminLogin() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
@@ -152,6 +154,9 @@ export default function AdminLogin() {
     if (res.error || !res) {
       toast.error(res.error);
     }
+   } catch (error) {
+    console.log(error.message)
+   }
   };
 
   return (
