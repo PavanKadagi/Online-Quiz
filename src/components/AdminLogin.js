@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import toast, { Toaster } from "react-hot-toast";
 import { theme } from "../styles/Theme";
+import { URL } from "../App";
 
 const SigninDiv = styled.section`
   .signin {
@@ -130,7 +131,7 @@ export default function AdminLogin() {
     e.preventDefault();
     // console.log(userLogin);
     const { email, password } = userLogin;
-    let res = await fetch("/admin", {
+    let res = await fetch(`${URL}/admin`, {
       method: "POST",
       headers: {
         Accept: "application/json",

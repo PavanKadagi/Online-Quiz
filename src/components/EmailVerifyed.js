@@ -18,18 +18,20 @@ export default function EmailVerifyed() {
 
   const verifyMail = async () => {
     try {
-      let res = await fetch(`${URL}/verify`, {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: newId,
-        }),
-      });
-      // let res = await fetch('/verify');
-      res = await res.json();
+      let res = await fetch(`${URL}/verify?id=${newId}`,
+      //  {
+      //   method: "PATCH",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     id: newId,
+      //   }),
+      // }
+      );
+      //  res = await fetch('/verify');
+      res = await res.json()
       if (res.error) {
         navigate("/");
       }
